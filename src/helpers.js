@@ -1,3 +1,7 @@
+//to make your create budget button disabled for a significant amnt of time
+// once the form is submitted
+export const waait=() => new Promise
+(res=> setTimeout(res, Math.random()* 1500))
 
 const generateRandomColor=()=>{
     const existingBudgetLength=fetchData("budgets")?.

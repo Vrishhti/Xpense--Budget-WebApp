@@ -4,7 +4,7 @@ import React from 'react'
 import{useLoaderData} from "react-router-dom";
 
 //helper fn
-import { createBudget, fetchData } from '../helpers'
+import { createBudget, fetchData, waait } from '../helpers'
 
 //componenets
 import Intro from '../components/Intro';
@@ -37,6 +37,7 @@ export function dashboardloader(){
 
 //this is gonna take any form in the page thats submitted
 export async function dashboardAction({request}) {
+  await waait()
   //gives access to all form data
   const data=await request.formData();
   // to get anything from form data api you have to call the specific name 
