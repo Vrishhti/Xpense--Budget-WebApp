@@ -28,7 +28,7 @@ const AddBudgetForm = () => {
     },[isSubmitting])
   return (
     <div className='form-wrapper'>
-        <h3 className='h3'>
+        <h3 className='h4'>
             Create Budget
         </h3>
         {/* not adding action in form bcz we use this in several pages in our site but we 

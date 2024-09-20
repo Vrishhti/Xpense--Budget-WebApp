@@ -29,8 +29,31 @@ export const createBudget= ({
     }
     //looks for existing budgets, if no budets giving then empty array ([])
     const existingBudgets= fetchData("budgets") ?? []
+    console.log('Existing budgets:', existingBudgets);
+
     return localStorage.setItem("budgets",
         JSON.stringify([...existingBudgets,newItem]));
+        
+    
+}
+//create expense
+export const createExpense= ({
+    name,amount,budgetId
+})=>{
+    const newItem={
+        //randoms tring for id. this crypto fn generates a random UUID
+        id: crypto.randomUUID(),
+        name: name,
+        createdAt: Date.now(),
+        //+amount ensures that amount is stored in number
+        amount: +amount,
+        budgetId: budgetId  
+      }
+    //looks for existing budgets, if no budets giving then empty array ([])
+    const existingExpenses= fetchData("expenses") ?? []
+
+    return localStorage.setItem("expenses",
+        JSON.stringify([...existingExpenses,newItem]));
     
 }
 

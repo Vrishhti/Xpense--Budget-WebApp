@@ -4,11 +4,12 @@ import React from 'react'
 import{useLoaderData} from "react-router-dom";
 
 //helper fn
-import { createBudget, fetchData, waait } from '../helpers'
+import { createBudget, fetchData, waait, createExpense } from '../helpers'
 
 //componenets
 import Intro from '../components/Intro';
 import AddBudgetForm from '../components/AddBudgetForm';
+import AddExpenseForm from '../components/AddExpenseForm';
 
 //library
 import { toast } from "react-toastify";
@@ -59,6 +60,11 @@ export async function dashboardAction({request}) {
     }
       }
       if(_action == 'createBudget'){
+        //debugging to see if budget is getting created
+      console.log('Form submitted with values:', values);
+      console.log('New Budget Name:', values.newBudget);
+      console.log('New Budget Amount:', values.newBudgetAmount);
+ 
         try{
           //create budget
           createBudget({
@@ -70,6 +76,24 @@ export async function dashboardAction({request}) {
           
         } catch(e){
           throw new Error("There was a problem creating your budget.")
+        }
+
+      }
+      if(_action == 'createExpense'){
+        console.log('Expense creation triggered');
+        console.log('Form data:', values); 
+        try{
+          //create expense
+          createExpense({
+            name:values.newExpense,
+            amount: values.newExpenseAmount,
+            budgetId: values.newExpenseBudget
+          });
+          console.log('Expense added successfully');
+          return toast.success("Expense Added")
+          
+        } catch(e){
+          throw new Error("There was a problem creating your expense.")
         }
 
       }
@@ -94,12 +118,31 @@ const Dashboard = () => {
               { userName}
             </span></h2>
             <div className='grid-sm'>
-             
+             {
+              //if budget exists
+              budgets && budgets.length>0
+              ?(
+
+              
               <div className='grid-lg'>
                 <div className='flex-lg'>
                   <AddBudgetForm/>
+                   {/* passing down budgets to expense form to decide how many budgets to show based on how many budgest exist  */}
+                  {/* budgets inside {} is a prop */}
+                  <AddExpenseForm budgets={budgets}/>
+
                 </div>
               </div>
+              )
+              //else
+              :(
+                <div className="grid-sm">
+                  <p>Personal budgeting made easier</p>
+                  <p margin={-10}>Get started now!</p>
+                  <AddBudgetForm/>
+                </div>
+              )
+              }
             </div>
         </div>
       ) :
