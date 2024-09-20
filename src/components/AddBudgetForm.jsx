@@ -37,6 +37,7 @@ const AddBudgetForm = () => {
             inputMode='decimal'
             required/>
         </div>
+        <input type='hidden' name='_action' value='createBudget'/>
         <button type='submit' className='btn btn--dark'>
             <span>Create Budget</span>
             <CurrencyRupeeIcon width={20}/>

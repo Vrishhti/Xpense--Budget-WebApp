@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     // if any children that need to be displayed in that outlet will be passed in the below array (children array)
     element: <Main/>,
     loader: mainloader,
-    // errorElement:<Error/>, 
+    errorElement:<Error/>, 
     children: [
       {
         index:true,
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Dashboard/>,
         action: dashboardAction,
         loader: dashboardloader,
-        // errorElement:<Error/>  
+        errorElement:<Error/>  
           //if u go to a route that doesnt exist, this will display an error msg
       },
       {

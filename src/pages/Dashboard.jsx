@@ -4,7 +4,7 @@ import React from 'react'
 import{useLoaderData} from "react-router-dom";
 
 //helper fn
-import { fetchData } from '../helpers'
+import { createBudget, fetchData } from '../helpers'
 
 //componenets
 import Intro from '../components/Intro';
@@ -43,10 +43,10 @@ export async function dashboardAction({request}) {
   // of that i/p that u sent it
 
   //extracting the action and spreading the formData into values
-  // const {_action, ...values}= Object.fromEntries(data)
+  const {_action, ...values}= Object.fromEntries(data)
 
   //new user submsn
-  // if(_action == "newUser"){
+  if(_action == "newUser"){
     try{
   
       // saves username to the key of that username which will pass it along the loader fn
@@ -57,7 +57,22 @@ export async function dashboardAction({request}) {
       throw new Error("There was a problem creating your account. Please try again")
     }
       }
-  // }
+      if(_action == 'createBudget'){
+        try{
+          //create budget
+          createBudget({
+            name:values.newBudget,
+            amount:values.newBudgetAmount,
+        })
+        console.log('success')
+          return toast.success("Budget Created!")
+          
+        } catch(e){
+          throw new Error("There was a problem creating your budget.")
+        }
+
+      }
+  }
 
   
 

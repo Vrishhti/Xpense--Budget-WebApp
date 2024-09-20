@@ -8,6 +8,10 @@ const Error = () => {
   //hook
   const error= useRouteError()
   const navigate = useNavigate()
+
+  const handleGoBack = () => {
+    navigate(-1)
+  }
   return (
     <div className="error">
       <h2> Uh oh! We've got a problem</h2>
